@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@import "uniwind";
+
+:root {
+  /* Brand Colors */
+  --primary: #e60023; /* Pinterest red */
+  --primary-foreground: #ffffff;
+
+  /* Surface Colors (Dark Mode) */
+  --background: #000000; /* Main background */
+  --dark-background: #121212; /* Elevated surfaces */
+  --foreground: #ffffff; /* Main text */
+
+  /* Neutral Colors */
+  --secondary: #1e1e1e; /* Secondary surfaces */
+  --secondary-foreground: #ffffff;
+  --border: #2a2a2a;
+  --shadow: #000000;
+
+  /* Text Colors */
+  --primary-text: #ffffff;
+  --secondary-text: #b0b0b0;
+  --tertiary-text: #767676;
+  --placeholder: #5a5a5a;
+
+  /* Status Colors */
+  --danger: #ff4444;
+  --danger-foreground: #ffffff;
+  --success: #00cc00;
+  --success-foreground: #ffffff;
+  --unactive: #4a4a4a;
+  --danger-text: #ff6666;
+  --success-text: #00ff00;
+  --link-text: #5db0ff;
+
+  --radius-card: 16px;
+}
+
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-background: var(--background);
+  --color-dark-background: var(--dark-background);
+  --color-foreground: var(--foreground);
+  --color-placeholder: var(--placeholder);
+  --color-border: var(--border);
+  --color-shadow: var(--shadow);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-unactive: var(--unactive);
+  --color-primary-text: var(--primary-text);
+  --color-secondary-text: var(--secondary-text);
+  --color-tertiary-text: var(--tertiary-text);
+  --color-danger-text: var(--danger-text);
+  --color-success-text: var(--success-text);
+  --color-link-text: var(--link-text);
+  --radius-card: 16px;
+}
