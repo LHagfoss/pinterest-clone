@@ -26,19 +26,17 @@ export function AppHeader({
             intensity={80}
             tint="dark"
             style={[
-                paddingTop
-                    ? {
-                          backgroundColor: "#00000099",
-                          paddingTop: insets.top,
-                          width: "100%",
-                          paddingHorizontal: 16,
-                          paddingVertical: 8,
-                          gap: 8,
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                      }
-                    : undefined,
+                {
+                    backgroundColor: "#00000099",
+                    width: "100%",
+                    paddingHorizontal: 24,
+                    paddingVertical: 12,
+                    gap: 8,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                },
+                paddingTop ? { paddingTop: insets.top } : { paddingTop: 12 },
             ]}
         >
             {leftIcon && <View className="w-10 relative">{leftIcon}</View>}

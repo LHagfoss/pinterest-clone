@@ -73,6 +73,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
             ],
             "@react-native-firebase/app",
             "@react-native-firebase/auth",
+            "@react-native-community/datetimepicker",
         ],
         experiments: {
             typedRoutes: true,

@@ -8,6 +8,9 @@ export const UserSchema = z.object({
     bio: z.string().optional(),
     website: z.string().optional().or(z.literal("")),
     username: z.string().optional(),
+    age: z.number().optional(),
+    birthday: z.string().optional(),
+    isOnboardingCompleted: z.boolean().default(false),
 
     tagAffinity: z.record(z.string(), z.number()).default({}),
     seenPinIds: z.array(z.string()).default([]),

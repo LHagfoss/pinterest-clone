@@ -128,7 +128,7 @@ export default function CreateScreen() {
                         onPressOut={handlePressOut}
                     >
                         <Animated.View
-                            className={`w-full bg-secondary rounded-3xl mb-6 items-center justify-center overflow-hidden border-2 border-dashed border-border ${!imageUri ? "aspect-[2/3]" : ""}`}
+                            className={`w-full bg-secondary rounded-3xl mb-6 items-center justify-center overflow-hidden border-2  ${!imageUri ? "aspect-3/2 border-dashed border-border" : "border-transparent"}`}
                             style={[
                                 { transform: [{ scale: scaleAnim }] },
                                 imageSize

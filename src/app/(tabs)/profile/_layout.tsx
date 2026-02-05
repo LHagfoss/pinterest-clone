@@ -5,23 +5,16 @@ export default function ProfileLayout() {
         <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="index" />
             <Stack.Screen
-                name="edit-display-name"
+                name="edit-profile"
                 options={{
-                    sheetAllowedDetents: "fitToContents",
                     presentation: "formSheet",
                     sheetGrabberVisible: true,
                     contentStyle: { backgroundColor: "#121212" },
                 }}
             />
-            <Stack.Screen
-                name="edit-username"
-                options={{
-                    sheetAllowedDetents: "fitToContents",
-                    presentation: "formSheet",
-                    sheetGrabberVisible: true,
-                    contentStyle: { backgroundColor: "#121212" },
-                }}
-            />
+            <Stack.Screen name="settings/index" />
+            <Stack.Screen name="settings/privacy-policy" />
+            <Stack.Screen name="settings/terms-of-service" />
         </Stack>
     );
 }

@@ -40,7 +40,7 @@ export const AppInput = forwardRef<TextInput, AppInputProps>(
         const internalRef = useRef<TextInput>(null);
         const inputRef = (ref as React.RefObject<TextInput>) || internalRef;
 
-        const baseStyles = "flex-row items-center border";
+        const baseStyles = "flex-row items-center border border";
 
         const variants = {
             default: "bg-background border-border",

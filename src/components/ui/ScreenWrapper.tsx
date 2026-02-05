@@ -16,6 +16,7 @@ type ScreenWrapperProps = ViewProps & {
     paddingTop?: boolean;
     headerOptions?: HeaderOptions;
     headerProps?: React.ComponentProps<typeof AppHeader>;
+    rounded?: boolean;
 };
 
 export function ScreenWrapper({
@@ -25,6 +26,7 @@ export function ScreenWrapper({
     headerOptions,
     contentContainerClassName,
     paddingTop,
+    rounded = false,
     ...restProps
 }: Readonly<ScreenWrapperProps>) {
     const defaultClasses = "bg-background flex-1";
@@ -45,9 +47,13 @@ export function ScreenWrapper({
 
     return (
         <View {...restProps} className={combinedClasses}>
-            <View className="absolute z-10">{headerComponent}</View>
+            <View className="absolute z-10 w-full">{headerComponent}</View>
             <View
-                className={`px-4 flex-1 rounded-xl overflow-hidden ${contentContainerClassName}`}
+                className={cn(
+                    "flex-1 overflow-hidden px-4",
+                    rounded && "rounded-xl",
+                    contentContainerClassName
+                )}
             >
                 {children}
             </View>

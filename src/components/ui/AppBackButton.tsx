@@ -1,14 +1,23 @@
-import { GlassView } from "expo-glass-effect";
 import { useRouter } from "expo-router";
-import { ChevronLeftIcon } from "lucide-react-native";
-import { Pressable } from "react-native";
+import { ChevronLeft } from "lucide-react-native";
+import { Pressable, type ViewStyle } from "react-native";
 import Animated, {
     useAnimatedStyle,
     useSharedValue,
     withSpring,
 } from "react-native-reanimated";
 
-export const AppBackButton = () => {
+interface AppBackButtonProps {
+    style?: ViewStyle;
+    color?: string;
+    size?: number;
+}
+
+export const AppBackButton = ({
+    style,
+    color = "white",
+    size = 28,
+}: AppBackButtonProps) => {
     const router = useRouter();
     const scale = useSharedValue(1);
 
@@ -19,30 +28,28 @@ export const AppBackButton = () => {
     });
 
     return (
-        <GlassView
-            style={{
-                borderRadius: 64,
-                width: 48,
-                height: 48,
-                justifyContent: "center",
-                alignItems: "center",
+        <Pressable
+            onPressIn={() => {
+                scale.value = withSpring(0.9);
             }}
-            isInteractive
+            onPressOut={() => {
+                scale.value = withSpring(1);
+            }}
+            hitSlop={12}
+            onPress={() => router.back()}
+            style={[
+                {
+                    width: 40,
+                    height: 40,
+                    justifyContent: "center",
+                    alignItems: "center",
+                },
+                style,
+            ]}
         >
-            <Pressable
-                onPressIn={() => {
-                    scale.value = withSpring(0.9);
-                }}
-                onPressOut={() => {
-                    scale.value = withSpring(1);
-                }}
-                hitSlop={8}
-                onPress={() => router.back()}
-            >
-                <Animated.View style={animatedStyle}>
-                    <ChevronLeftIcon color="white" size={32} />
-                </Animated.View>
-            </Pressable>
-        </GlassView>
+            <Animated.View style={animatedStyle}>
+                <ChevronLeft color={color} size={size} />
+            </Animated.View>
+        </Pressable>
     );
 };

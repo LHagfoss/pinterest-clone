@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { View } from "react-native";
 import Toast from "react-native-toast-message";
 import { createPin } from "@/src/api/pins";
-import { AppButton, AppCard } from "@/src/components/ui";
+import { AppButton } from "@/src/components/ui";
 import { masonryData } from "@/src/constants/data/masonryData";
 import { useAuthStore } from "@/src/stores";
 
-export function SeedDataButton() {
+interface SendDataButtonProps {
+    icon?: React.ReactNode;
+}
+
+export function SeedDataButton({ icon }: Readonly<SendDataButtonProps>) {
     const [loading, setLoading] = useState(false);
     const { user } = useAuthStore();
 
@@ -30,7 +33,6 @@ export function SeedDataButton() {
                     height: pin.height,
                     ratio: pin.ratio,
                     tags: pin.tags || [],
-                    blurhash: pin.blurhash,
                 });
                 count++;
             }
@@ -46,6 +48,7 @@ export function SeedDataButton() {
     return (
         <AppButton
             onPress={handleSeed}
+            icon={icon}
             loading={loading}
             fullWidth
             variant="secondary"

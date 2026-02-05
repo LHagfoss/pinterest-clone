@@ -2,40 +2,63 @@ import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Copy, Download, Heart, Star } from "lucide-react-native";
 import type * as React from "react";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { AppText } from "@/src/components/ui";
 import { useIsFavorited, useToggleFavorite } from "@/src/hooks/favorites";
 import { useIsLiked, useToggleLike } from "@/src/hooks/likes";
+import { usePinStore } from "@/src/stores";
 import type { Pin } from "@/src/schemas";
+import { useGetPin } from "@/src/hooks/pins";
 
 export default function PinOptions() {
-    const params = useLocalSearchParams();
-    const pin: Pin = params.pin ? JSON.parse(params.pin as string) : null;
-
+    const { id } = useLocalSearchParams();
+    const { selectedPin } = usePinStore();
+    const [pin, setPin] = useState<Pin | null>(null);
     const router = useRouter();
-    const { data: isLiked } = useIsLiked(pin.id);
+
+    useEffect(() => {
+        if (selectedPin && selectedPin.id === id) {
+            setPin(selectedPin);
+        }
+    }, [selectedPin, id]);
+
+    const { data: fetchedPin } = useGetPin(pin ? undefined : (id as string));
+
+    useEffect(() => {
+        if (fetchedPin) {
+            setPin(fetchedPin);
+        }
+    }, [fetchedPin]);
+
+    const { data: isLiked } = useIsLiked(pin?.id || "");
     const { mutate: toggleLike } = useToggleLike();
 
-    const { data: isFavorited } = useIsFavorited(pin.id);
+    const { data: isFavorited } = useIsFavorited(pin?.id || "");
     const { mutate: toggleFavorite } = useToggleFavorite();
 
     const toggleFavoritePin = () => {
-        toggleFavorite(pin);
-        router.dismiss();
+        if (pin) {
+            toggleFavorite(pin);
+            router.dismiss();
+        }
     };
 
     const toggleLikePin = () => {
-        toggleLike(pin.id);
-        router.dismiss();
+        if (pin) {
+            toggleLike(pin.id);
+            router.dismiss();
+        }
     };
 
     const copyToClipboard = useCallback(async () => {
-        await Clipboard.setStringAsync(pin.id.toString());
-        Toast.show({ type: "success", text1: "Copied ID" });
-        router.dismiss();
-    }, [pin.id]);
+        if (pin) {
+            await Clipboard.setStringAsync(pin.id.toString());
+            Toast.show({ type: "success", text1: "Copied ID" });
+            router.dismiss();
+        }
+    }, [pin, router]);
 
     if (!pin) {
         return null;

@@ -149,7 +149,7 @@ export default function TabLayout() {
         >
             <Tabs.Screen name="feed" options={{ title: "Feed" }} />
             <Tabs.Screen name="create" options={{ title: "Create" }} />
-            <Tabs.Screen name="Profile" options={{ title: "Profile" }} />
+            <Tabs.Screen name="profile" options={{ title: "Profile" }} />
         </Tabs>
     );
 }

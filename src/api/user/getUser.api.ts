@@ -6,7 +6,7 @@ export const getUser = async (uid: string): Promise<UserProfile | null> => {
         const db = getFirestore();
         const documentSnapshot = await getDoc(doc(db, "users", uid));
         
-        if (documentSnapshot.exists) {
+        if (documentSnapshot.exists()) {
             return documentSnapshot.data() as UserProfile;
         }
         return null;
@@ -24,7 +24,7 @@ export const subscribeToUser = (
     return onSnapshot(
         doc(db, "users", uid),
         (documentSnapshot) => {
-            if (documentSnapshot.exists) {
+            if (documentSnapshot.exists()) {
                 onUpdate(documentSnapshot.data() as UserProfile);
             } else {
                 onUpdate(null);

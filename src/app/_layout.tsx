@@ -16,6 +16,7 @@ import Toast from "react-native-toast-message";
 import { QueryProvider } from "@/src/api/queryClient";
 import { toastConfig } from "@/src/components/ToastConfig";
 import { useAuthStore } from "@/src/stores";
+import { useGetUser } from "@/src/hooks/user";
 
 GoogleSignin.configure({
     webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
@@ -23,17 +24,12 @@ GoogleSignin.configure({
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-    const { isInitialized, isLoggedIn, subscribeToAuthChanges } =
+function AppContent() {
+    const { isInitialized, isLoggedIn, subscribeToAuthChanges, user } =
         useAuthStore();
+    const { data: userProfile, isLoading: isUserLoading } = useGetUser(user?.uid);
     const segments = useSegments();
     const router = useRouter();
-    const [isSplashAnimationFinished, setIsSplashAnimationFinished] =
-        useState(false);
-
-    const [fontsLoaded] = useFonts({
-        // 'Inter-Bold': require('../../assets/fonts/Inter-Bold.ttf'),
-    });
 
     useEffect(() => {
         const unsubscribe = subscribeToAuthChanges();
@@ -41,18 +37,41 @@ export default function RootLayout() {
     }, []);
 
     useEffect(() => {
-        if (!isInitialized) return;
+        if (!isInitialized || isUserLoading) return;
 
         const inAuthGroup = segments[0] === "(auth)";
+        const inOnboardingGroup = segments[0] === "(onboarding)";
         const allowedPublicRoutes = ["(auth)", "privacy-policy"];
         const isPublicRoute = allowedPublicRoutes.includes(segments[0]);
 
-        if (isLoggedIn && inAuthGroup) {
-            router.replace("/(tabs)/feed");
+        if (isLoggedIn) {
+            if (!userProfile?.isOnboardingCompleted) {
+                if (!inOnboardingGroup) {
+                    router.replace("/(onboarding)");
+                }
+            } else if (inAuthGroup || inOnboardingGroup) {
+                router.replace("/(tabs)/feed");
+            }
         } else if (!isLoggedIn && !isPublicRoute) {
             router.replace("/(auth)/sign-in");
         }
-    }, [isLoggedIn, isInitialized, segments]);
+    }, [isLoggedIn, isInitialized, segments, userProfile?.isOnboardingCompleted, isUserLoading]);
+
+    return (
+        <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(onboarding)" />
+            <Stack.Screen name="+not-found" />
+        </Stack>
+    );
+}
+
+export default function RootLayout() {
+    const { isInitialized } = useAuthStore();
+    const [fontsLoaded] = useFonts({
+        // 'Inter-Bold': require('../../assets/fonts/Inter-Bold.ttf'),
+    });
 
     useEffect(() => {
         if (fontsLoaded && isInitialized) {
@@ -65,12 +84,7 @@ export default function RootLayout() {
             <SafeAreaProvider initialMetrics={initialWindowMetrics}>
                 <KeyboardProvider>
                     <QueryProvider>
-                        <Stack screenOptions={{ headerShown: false }}>
-                            <Stack.Screen name="(tabs)" />
-                            <Stack.Screen name="(auth)" />
-                            <Stack.Screen name="+not-found" />
-                        </Stack>
-
+                        <AppContent />
                         <Toast config={toastConfig} />
                     </QueryProvider>
                 </KeyboardProvider>
