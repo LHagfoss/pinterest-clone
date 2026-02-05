@@ -1,3 +1,4 @@
+import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 import { Camera } from "lucide-react-native";
 import { TouchableOpacity, View } from "react-native";
@@ -23,20 +24,26 @@ export default function ProfileCard({
             <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={imageOnPress}
-                className="bg-dark-background rounded-full overflow-hidden relative w-18 h-18"
+                className="relative w-18 h-18"
             >
-                <View className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <Camera color="white" />
-                </View>
-
                 <Image
                     source={{ uri: photoURL ?? undefined }}
                     style={{
                         height: "100%",
                         width: "100%",
+                        borderRadius: "100%",
                     }}
                     contentFit="cover"
                 />
+
+                <View className="absolute bottom-0 right-0 rounded-full overflow-hidden h-6 w-6">
+                    <BlurView
+                        className="w-full h-full items-center justify-center"
+                        intensity={40}
+                    >
+                        <Camera size={16} color="#fff" />
+                    </BlurView>
+                </View>
             </TouchableOpacity>
             <View>
                 <AppText size="xl" className="text-primary-text">

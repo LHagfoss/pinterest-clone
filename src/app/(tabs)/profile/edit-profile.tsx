@@ -1,3 +1,4 @@
+import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { Camera } from "lucide-react-native";
@@ -104,7 +105,7 @@ export default function EditProfileScreen() {
                     activeOpacity={0.8}
                     className="relative"
                 >
-                    <View className="h-24 w-24 rounded-full overflow-hidden bg-background-700 border border-border">
+                    <View className="h-32 w-32 rounded-full overflow-hidden bg-background-700 border border-border">
                         {userProfile?.photoURL ? (
                             <Image
                                 source={{ uri: userProfile.photoURL }}
@@ -128,8 +129,14 @@ export default function EditProfileScreen() {
                             </View>
                         )}
                     </View>
-                    <View className="absolute bottom-0 right-0 bg-background-700 p-2 rounded-full border border-background">
-                        <Camera size={16} color="#fff" />
+
+                    <View className="absolute bottom-1 right-1 rounded-full overflow-hidden h-10 w-10">
+                        <BlurView
+                            className="w-full h-full items-center justify-center"
+                            intensity={40}
+                        >
+                            <Camera size={24} color="#fff" />
+                        </BlurView>
                     </View>
                 </TouchableOpacity>
             </View>

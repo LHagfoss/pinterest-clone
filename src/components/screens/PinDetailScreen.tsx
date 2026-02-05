@@ -126,7 +126,7 @@ export default function PinDetailScreen({
                 style={{ paddingTop: insets.top }}
                 className="absolute left-6 z-10"
             >
-                <AppBackButton />
+                <AppBackButton background />
             </View>
 
             <FlashList

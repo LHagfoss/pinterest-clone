@@ -90,7 +90,7 @@ export function AppButton({
                 <ActivityIndicator
                     color={
                         variant === "primary" || variant === "danger"
-                            ? "white"
+                            ? "black"
                             : "black"
                     }
                 />

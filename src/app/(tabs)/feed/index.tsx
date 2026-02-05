@@ -31,7 +31,7 @@ export default function FeedScreen() {
                         <RefreshControl
                             refreshing={isRefreshing}
                             onRefresh={refresh}
-                            tintColor="#444444"
+                            tintColor="#77777"
                             progressViewOffset={insets.top + 64}
                         />
                     }

@@ -11,12 +11,14 @@ interface AppBackButtonProps {
     style?: ViewStyle;
     color?: string;
     size?: number;
+    background?: boolean;
 }
 
 export const AppBackButton = ({
     style,
     color = "white",
     size = 28,
+    background = false,
 }: AppBackButtonProps) => {
     const router = useRouter();
     const scale = useSharedValue(1);
@@ -29,6 +31,9 @@ export const AppBackButton = ({
 
     return (
         <Pressable
+            className={
+                background ? "bg-dark-background rounded-xl" : "bg-transparent"
+            }
             onPressIn={() => {
                 scale.value = withSpring(0.9);
             }}
@@ -43,6 +48,7 @@ export const AppBackButton = ({
                     height: 40,
                     justifyContent: "center",
                     alignItems: "center",
+                    paddingRight: 2,
                 },
                 style,
             ]}
