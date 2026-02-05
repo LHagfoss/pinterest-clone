@@ -74,7 +74,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
     return (
         <View style={styles.container}>
-            <BlurView intensity={80} tint="dark" style={styles.blurView}>
+            <BlurView tint="dark" intensity={25} style={styles.blurView}>
                 <View style={styles.tabRow}>
                     {state.routes.map((route, index) => {
                         const { options } = descriptors[route.key];
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         right: 0,
     },
     blurView: {
-        backgroundColor: "#00000099",
+        backgroundColor: "rgba(0,0,0,0.90)",
         width: "100%",
         paddingBottom: Platform.OS === "ios" ? 30 : 10,
     },

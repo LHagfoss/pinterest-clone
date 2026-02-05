@@ -9,7 +9,12 @@ import { Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PinActionButtons } from "@/src/components/PinActionButtons";
 import PinItem from "@/src/components/PinItem";
-import { AppBackButton, AppText } from "@/src/components/ui";
+import {
+    AppBackButton,
+    AppText,
+    ProfilePicture,
+    ScreenWrapper,
+} from "@/src/components/ui";
 import { useGetRecommendedPins } from "@/src/hooks/pins/useGetRecommendedPins";
 import type { Pin } from "@/src/schemas";
 
@@ -26,21 +31,17 @@ const PinDetailImage = React.memo(
     }) => {
         return (
             <Link.AppleZoomTarget>
-                <View className="p-2">
-                    <Image
-                        source={{ uri: imageUrl }}
-                        style={{
-                            aspectRatio: width / height,
-                            maxHeight: "100%",
-                            marginHorizontal: "auto",
-                            borderTopLeftRadius: 54,
-                            borderTopRightRadius: 54,
-                            borderRadius: 24,
-                        }}
-                        contentFit="cover"
-                        transition={500}
-                    />
-                </View>
+                <Image
+                    source={{ uri: imageUrl }}
+                    style={{
+                        aspectRatio: width / height,
+                        maxHeight: "100%",
+                        marginHorizontal: "auto",
+                        borderRadius: 24,
+                    }}
+                    contentFit="cover"
+                    transition={500}
+                />
             </Link.AppleZoomTarget>
         );
     },
@@ -68,14 +69,27 @@ export default function PinDetailScreen({
 
     console.log(pin.imageUrl);
 
-    const HeaderContent = useCallback(
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    const BodyContent = useCallback(
         () => (
-            <View className="w-full">
+            <View
+                className="w-full"
+                style={{
+                    paddingTop: insets.top,
+                }}
+            >
                 <PinDetailImage
                     imageUrl={pin.imageUrl}
                     width={pin.width}
                     height={pin.height}
                 />
+
+                <View
+                    style={{ paddingTop: insets.top }}
+                    className="absolute top-4 left-6"
+                >
+                    <AppBackButton background />
+                </View>
 
                 <View className="">
                     <View className="flex-row items-center justify-between">
@@ -121,23 +135,21 @@ export default function PinDetailScreen({
     );
 
     return (
-        <View className="flex-1 bg-background">
-            <View
-                style={{ paddingTop: insets.top }}
-                className="absolute left-6 z-10"
-            >
-                <AppBackButton background />
-            </View>
-
+        <ScreenWrapper
+            headerOptions={{
+                showHeader: false,
+            }}
+            contentContainerClassName="px-0"
+        >
             <FlashList
                 data={validPins}
                 numColumns={2}
-                ListHeaderComponent={HeaderContent}
+                ListHeaderComponent={BodyContent}
                 masonry
                 renderItem={({ item }) => <PinItem item={item} />}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}
             />
-        </View>
+        </ScreenWrapper>
     );
 }

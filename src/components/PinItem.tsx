@@ -43,29 +43,28 @@ export default function PinItem({ item }: Readonly<PinItemProps>) {
                                 width: "100%",
                                 aspectRatio: item.width / item.height,
                                 maxHeight: Math.min(item.height / 2),
-                                borderRadius: 16,
+                                borderRadius: 12,
                             }}
                         />
                     </Link.AppleZoom>
                 </Pressable>
             </Link>
 
-            <View className="flex-row items-start justify-end">
-                <Pressable
-                    hitSlop={8}
-                    onPress={() => {
-                        setSelectedPin(item);
-                        router.push({
-                            pathname: "/(tabs)/feed/pin-options",
-                            params: {
-                                id: item.id,
-                            },
-                        });
-                    }}
-                >
-                    <Ellipsis size={16} color="#ffffff" />
-                </Pressable>
-            </View>
+            <Pressable
+                className="absolute bottom-2 right-3 flex-row items-start justify-end"
+                hitSlop={8}
+                onPress={() => {
+                    setSelectedPin(item);
+                    router.push({
+                        pathname: "/(tabs)/feed/pin-options",
+                        params: {
+                            id: item.id,
+                        },
+                    });
+                }}
+            >
+                <Ellipsis size={16} color="#ffffff" />
+            </Pressable>
         </View>
     );
 }

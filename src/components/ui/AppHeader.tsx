@@ -23,11 +23,11 @@ export function AppHeader({
 
     return (
         <BlurView
-            intensity={80}
             tint="dark"
+            intensity={25}
             style={[
                 {
-                    backgroundColor: "#00000099",
+                    backgroundColor: "rgba(0,0,0,0.90)",
                     width: "100%",
                     paddingHorizontal: 24,
                     paddingVertical: 12,
@@ -45,7 +45,7 @@ export function AppHeader({
                 className={`flex-1 ${leftIcon ? "justify-center items-center" : "justify-center"}`}
             >
                 <AppText
-                    size={leftIcon ? "sm" : "lg"}
+                    size={leftIcon ? "sm" : "xl"}
                     weight="bold"
                     className="text-foreground"
                 >
