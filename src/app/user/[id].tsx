@@ -122,7 +122,7 @@ export default function UserProfileScreen() {
                                 </AppText>
                             </TouchableOpacity>
                         </View>
-                        2{/* Bio */}
+                        {/* Bio */}
                         {user.bio && (
                             <AppText className="text-primary-text text-center mt-4 px-8 leading-5">
                                 {user.bio}
