@@ -1,33 +1,19 @@
 import { FlashList } from "@shopify/flash-list";
-import { useState } from "react";
 import {
     ActivityIndicator,
     Pressable,
     RefreshControl,
-    ScrollView,
     View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import PinItem from "@/src/components/PinItem";
 import { AppText, ProfilePicture, ScreenWrapper } from "@/src/components/ui";
 import { useFeed } from "@/src/hooks/feed/useFeed";
-import { useGetUser } from "@/src/hooks/user";
-import { useAuthStore } from "@/src/stores";
 
 export default function FeedScreen() {
     const insets = useSafeAreaInsets();
-    const { user } = useAuthStore();
-    const { data: userProfile } = useGetUser(user?.uid);
 
     const { pins, isLoading, isRefreshing, refresh, loadMore } = useFeed();
-    const [selectedFilter, setSelectedFilter] = useState("All");
-
-    const baseFilters = ["All", "Popular", "Recent", "Following"];
-    const userCategories = userProfile?.tagAffinity
-        ? Object.keys(userProfile.tagAffinity)
-        : [];
-
-    const filters = [...baseFilters, ...userCategories];
 
     return (
         <ScreenWrapper contentContainerClassName="px-0">
@@ -37,33 +23,20 @@ export default function FeedScreen() {
                     masonry
                     numColumns={2}
                     ListHeaderComponent={() => (
-                        <ScrollView
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            className="p-2"
-                        >
-                            {filters.map((item) => {
-                                const active = selectedFilter === item;
-                                return (
-                                    <Pressable
-                                        key={item}
-                                        onPress={() => setSelectedFilter(item)}
-                                        className={`px-4 py-1 mr-2 rounded-full ${
-                                            active
-                                                ? "bg-primary"
-                                                : "bg-secondary"
-                                        }`}
-                                    >
-                                        <AppText
-                                            size="sm"
-                                            className="text-primary-text"
-                                        >
-                                            {item}
-                                        </AppText>
-                                    </Pressable>
-                                );
-                            })}
-                        </ScrollView>
+                        <View className="flex-row items-end justify-between pl-4 pr-1 pb-1">
+                            <Pressable className="flex-col items-center mb-1">
+                                <AppText
+                                    size="lg"
+                                    className="text-primary-text"
+                                >
+                                    All
+                                </AppText>
+
+                                <View className="w-full h-0.5 bg-foreground" />
+                            </Pressable>
+
+                            <ProfilePicture />
+                        </View>
                     )}
                     onEndReached={loadMore}
                     onEndReachedThreshold={0.5}
