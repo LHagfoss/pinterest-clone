@@ -9,13 +9,16 @@ import { Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PinActionButtons } from "@/src/components/PinActionButtons";
 import PinItem from "@/src/components/PinItem";
+import PinCreatorProfile from "@/src/components/UserProfileCard";
 import {
     AppBackButton,
+    AppButton,
     AppText,
     ProfilePicture,
     ScreenWrapper,
 } from "@/src/components/ui";
 import { useGetRecommendedPins } from "@/src/hooks/pins/useGetRecommendedPins";
+import { useGetUser } from "@/src/hooks/user";
 import type { Pin } from "@/src/schemas";
 
 // eslint-disable-next-line react/display-name
@@ -31,17 +34,19 @@ const PinDetailImage = React.memo(
     }) => {
         return (
             <Link.AppleZoomTarget>
-                <Image
-                    source={{ uri: imageUrl }}
-                    style={{
-                        aspectRatio: width / height,
-                        maxHeight: "100%",
-                        marginHorizontal: "auto",
-                        borderRadius: 24,
-                    }}
-                    contentFit="cover"
-                    transition={500}
-                />
+                <View className="px-1">
+                    <Image
+                        source={{ uri: imageUrl }}
+                        style={{
+                            aspectRatio: width / height,
+                            maxHeight: "100%",
+                            marginHorizontal: "auto",
+                            borderRadius: 24,
+                        }}
+                        contentFit="cover"
+                        transition={500}
+                    />
+                </View>
             </Link.AppleZoomTarget>
         );
     },
@@ -72,12 +77,7 @@ export default function PinDetailScreen({
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     const BodyContent = useCallback(
         () => (
-            <View
-                className="w-full"
-                style={{
-                    paddingTop: insets.top,
-                }}
-            >
+            <View className="w-full" style={{ paddingTop: insets.top }}>
                 <PinDetailImage
                     imageUrl={pin.imageUrl}
                     width={pin.width}
@@ -86,26 +86,43 @@ export default function PinDetailScreen({
 
                 <View
                     style={{ paddingTop: insets.top }}
-                    className="absolute top-4 left-6"
+                    className="absolute left-4 top-4"
                 >
                     <AppBackButton background />
                 </View>
 
-                <View className="">
-                    <View className="flex-row items-center justify-between">
+                <View className="p-4">
+                    <View className="flex-row items-center justify-between mb-2">
+                        <PinActionButtons pin={pin} disableDelete={false} />
+
+                        <AppButton
+                            variant="primary"
+                            size="md"
+                            rounded="2xl"
+                            weight="bold"
+                        >
+                            Save
+                        </AppButton>
+                    </View>
+
+                    <View className="gap-2">
+                        <PinCreatorProfile userId={pin.userId} />
+
                         <AppText
                             size="2xl"
                             weight="bold"
-                            className="flex-1 text-primary-text px-4 pt-4"
+                            className="flex-1 text-primary-text"
                         >
                             {pin.title}
                         </AppText>
 
-                        <PinActionButtons pin={pin} disableDelete={false} />
+                        <AppText className="text-secondary-text text-base mb-6">
+                            {pin.description}
+                        </AppText>
                     </View>
 
                     {pin.tags && pin.tags.length > 0 && (
-                        <View className="px-4 flex-row flex-wrap gap-2 mb-4">
+                        <View className="flex-row flex-wrap gap-2 mb-4">
                             {pin.tags.map((tag) => (
                                 <AppText
                                     key={tag}
@@ -117,14 +134,10 @@ export default function PinDetailScreen({
                         </View>
                     )}
 
-                    <AppText className="px-4 text-secondary-text text-base mb-6">
-                        {pin.description}
-                    </AppText>
-
                     <AppText
                         size="lg"
                         weight="semibold"
-                        className="text-primary-text mb-4 px-4"
+                        className="text-primary-text mb-4"
                     >
                         More like this
                     </AppText>

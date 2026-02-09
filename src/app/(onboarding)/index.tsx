@@ -57,7 +57,7 @@ export default function OnboardingAgeScreen() {
         >
             <ScrollView contentContainerClassName="flex-1 p-4 gap-8 pt-20">
                 <View>
-                    <AppText size="4xl" weight="bold" className="mb-2">
+                    <AppText size="3xl" weight="bold" className="mb-2">
                         Welcome!
                     </AppText>
                     <AppText className="text-secondary-text">

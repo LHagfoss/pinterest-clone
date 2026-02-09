@@ -118,7 +118,7 @@ export default function OnboardingInterestsScreen() {
         >
             <View className="flex-1 pt-20">
                 <View className="px-4 mb-6">
-                    <AppText size="4xl" weight="bold" className="mb-2">
+                    <AppText size="3xl" weight="bold" className="mb-2">
                         Last step!
                     </AppText>
                     <AppText className="text-secondary-text">
@@ -135,7 +135,7 @@ export default function OnboardingInterestsScreen() {
                                 <TouchableOpacity
                                     key={category}
                                     onPress={() => toggleCategory(category)}
-                                    className={`px-4 py-2 rounded-full border ${
+                                    className={`px-4 py-1 rounded-full border ${
                                         isSelected
                                             ? "bg-primary border-primary"
                                             : "bg-background-700 border-border"

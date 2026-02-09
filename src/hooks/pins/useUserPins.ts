@@ -4,15 +4,17 @@ import { useAuthStore } from "@/src/stores";
 import Toast from "react-native-toast-message";
 import { useRouter } from "expo-router";
 
-export const useGetUserPins = () => {
+export const useGetUserPins = (userId?: string) => {
     const { user } = useAuthStore();
+    const targetId = userId || user?.uid;
+
     return useQuery({
-        queryKey: ["userPins", user?.uid],
+        queryKey: ["userPins", targetId],
         queryFn: async () => {
-            if (!user?.uid) return [];
-            return getUserPins(user.uid);
+            if (!targetId) return [];
+            return getUserPins(targetId);
         },
-        enabled: !!user?.uid,
+        enabled: !!targetId,
     });
 };
 

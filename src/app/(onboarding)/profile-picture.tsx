@@ -44,7 +44,7 @@ export default function OnboardingProfilePictureScreen() {
             <View className="flex-1 p-4 pt-20 justify-between">
                 <View className="gap-8">
                     <View>
-                        <AppText size="4xl" weight="bold" className="mb-2">
+                        <AppText size="3xl" weight="bold" className="mb-2">
                             Add a photo
                         </AppText>
                         <AppText className="text-secondary-text">

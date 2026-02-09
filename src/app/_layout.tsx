@@ -15,8 +15,8 @@ import {
 import Toast from "react-native-toast-message";
 import { QueryProvider } from "@/src/api/queryClient";
 import { toastConfig } from "@/src/components/ToastConfig";
-import { useAuthStore } from "@/src/stores";
 import { useGetUser } from "@/src/hooks/user";
+import { useAuthStore } from "@/src/stores";
 
 GoogleSignin.configure({
     webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
@@ -27,7 +27,9 @@ SplashScreen.preventAutoHideAsync();
 function AppContent() {
     const { isInitialized, isLoggedIn, subscribeToAuthChanges, user } =
         useAuthStore();
-    const { data: userProfile, isLoading: isUserLoading } = useGetUser(user?.uid);
+    const { data: userProfile, isLoading: isUserLoading } = useGetUser(
+        user?.uid,
+    );
     const segments = useSegments();
     const router = useRouter();
 
@@ -53,9 +55,16 @@ function AppContent() {
                 router.replace("/(tabs)/feed");
             }
         } else if (!isLoggedIn && !isPublicRoute) {
+            console.log("user is not logged in, redirecting to sign-in.");
             router.replace("/(auth)/sign-in");
         }
-    }, [isLoggedIn, isInitialized, segments, userProfile?.isOnboardingCompleted, isUserLoading]);
+    }, [
+        isLoggedIn,
+        isInitialized,
+        segments,
+        userProfile?.isOnboardingCompleted,
+        isUserLoading,
+    ]);
 
     return (
         <Stack screenOptions={{ headerShown: false }}>

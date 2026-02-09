@@ -9,7 +9,7 @@ interface ProfileCardProps {
     displayName: string | undefined | null;
     email: string | undefined | null;
     userName: string | undefined | null;
-    imageOnPress: () => void;
+    imageOnPress?: () => void;
 }
 
 export default function ProfileCard({
@@ -24,6 +24,7 @@ export default function ProfileCard({
             <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={imageOnPress}
+                disabled={!imageOnPress}
                 className="relative w-18 h-18"
             >
                 <Image
@@ -31,26 +32,30 @@ export default function ProfileCard({
                     style={{
                         height: "100%",
                         width: "100%",
-                        borderRadius: "100%",
+                        borderRadius: 100,
                     }}
                     contentFit="cover"
                 />
 
-                <View className="absolute bottom-0 right-0 rounded-full overflow-hidden h-6 w-6">
-                    <BlurView
-                        className="w-full h-full items-center justify-center"
-                        intensity={40}
-                    >
-                        <Camera size={16} color="#fff" />
-                    </BlurView>
-                </View>
+                {imageOnPress && (
+                    <View className="absolute bottom-0 right-0 rounded-full overflow-hidden h-6 w-6">
+                        <BlurView
+                            className="w-full h-full items-center justify-center"
+                            intensity={40}
+                        >
+                            <Camera size={16} color="#fff" />
+                        </BlurView>
+                    </View>
+                )}
             </TouchableOpacity>
             <View>
                 <AppText size="xl" className="text-primary-text">
                     {displayName}
                 </AppText>
-
-                <AppText className="text-tertiary-text">{email}</AppText>
+                
+                {userName && (
+                     <AppText className="text-tertiary-text text-sm">@{userName}</AppText>
+                )}
             </View>
         </AppCard>
     );

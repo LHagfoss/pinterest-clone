@@ -11,8 +11,9 @@ import { AppText, type AppTextProps } from "./AppText";
 type AppButtonProps = {
     variant?: "primary" | "secondary" | "ghost" | "outline" | "danger" | "none";
     size?: "none" | "xs" | "sm" | "md" | "lg";
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "full";
     loading?: boolean;
+    flex?: boolean;
     fullWidth?: boolean;
     icon?: React.ReactNode;
     children?: React.ReactNode;
@@ -25,6 +26,7 @@ export function AppButton({
     size = "none",
     rounded = "full",
     loading = false,
+    flex = false,
     fullWidth = false,
     className,
     textClassName,
@@ -68,6 +70,8 @@ export function AppButton({
         sm: "rounded-sm",
         md: "rounded-md",
         lg: "rounded-lg",
+        xl: "rounded-xl",
+        "2xl": "rounded-2xl",
         full: "rounded-full",
     };
 
@@ -80,6 +84,7 @@ export function AppButton({
                 variants[variant],
                 sizes[size],
                 roundedVariants[rounded],
+                flex && "flex-1",
                 fullWidth ? "w-full" : "self-start",
                 disabled && "opacity-50",
                 className,
