@@ -14,7 +14,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 
 import { SeedDataButton } from "@/src/components/SeedDataButton";
-import { AppBackButton, AppButton, AppCard, AppText, Divider } from "@/src/components/ui";
+import {
+    AppBackButton,
+    AppButton,
+    AppCard,
+    AppText,
+    Divider,
+} from "@/src/components/ui";
 import { ScreenWrapper } from "@/src/components/ui/ScreenWrapper";
 import { useGetUser } from "@/src/hooks/user";
 import { useDeleteUser } from "@/src/hooks/user/useDeleteUser";
@@ -97,7 +103,6 @@ export default function SettingsScreen() {
             headerOptions={{
                 showHeader: true,
                 title: "Settings",
-                leftIcon: <AppBackButton />,
             }}
             contentContainerClassName="px-4"
         >
@@ -107,7 +112,11 @@ export default function SettingsScreen() {
             >
                 <View style={{ paddingTop: insets.top + 64 }} className="gap-6">
                     <View>
-                        <AppText className="text-secondary-text mb-2 ml-1 text-sm font-medium uppercase">
+                        <AppText
+                            size="xs"
+                            weight="bold"
+                            className="text-secondary-text mb-2 ml-1 uppercase"
+                        >
                             Account
                         </AppText>
                         <AppCard className="rounded-3xl p-0 overflow-hidden">
@@ -130,7 +139,11 @@ export default function SettingsScreen() {
                     </View>
 
                     <View>
-                        <AppText className="text-secondary-text mb-2 ml-1 text-sm font-medium uppercase">
+                        <AppText
+                            size="xs"
+                            weight="bold"
+                            className="text-secondary-text mb-2 ml-1 uppercase"
+                        >
                             Legal
                         </AppText>
                         <AppCard className="rounded-3xl p-0 overflow-hidden">
@@ -138,7 +151,7 @@ export default function SettingsScreen() {
                                 icon={<FileText color="#ffffff" size={20} />}
                                 onPress={() =>
                                     router.push(
-                                        "/(tabs)/profile/settings/terms-of-service",
+                                        "/(tabs)/settings/terms-of-service",
                                     )
                                 }
                                 fullWidth
@@ -152,7 +165,7 @@ export default function SettingsScreen() {
                                 icon={<Info color="#ffffff" size={20} />}
                                 onPress={() =>
                                     router.push(
-                                        "/(tabs)/profile/settings/privacy-policy",
+                                        "/(tabs)/settings/privacy-policy",
                                     )
                                 }
                                 fullWidth
@@ -165,7 +178,11 @@ export default function SettingsScreen() {
                     </View>
 
                     <View>
-                        <AppText className="text-secondary-text mb-2 ml-1 text-sm font-medium uppercase">
+                        <AppText
+                            size="xs"
+                            weight="bold"
+                            className="text-secondary-text mb-2 ml-1 uppercase"
+                        >
                             Developer
                         </AppText>
                         <AppCard className="rounded-3xl p-0 overflow-hidden">
@@ -176,7 +193,11 @@ export default function SettingsScreen() {
                     </View>
 
                     <View>
-                        <AppText className="text-secondary-text mb-2 ml-1 text-sm font-medium uppercase">
+                        <AppText
+                            size="xs"
+                            weight="bold"
+                            className="text-secondary-text mb-2 ml-1 uppercase"
+                        >
                             Actions
                         </AppText>
                         <AppCard className="rounded-3xl p-0 overflow-hidden">

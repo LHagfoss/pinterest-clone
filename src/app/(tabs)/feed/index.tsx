@@ -61,7 +61,10 @@ export default function FeedScreen() {
                                                 : "bg-secondary"
                                         }`}
                                     >
-                                        <AppText className="text-primary-text">
+                                        <AppText
+                                            size="sm"
+                                            className="text-primary-text"
+                                        >
                                             {item}
                                         </AppText>
                                     </Pressable>

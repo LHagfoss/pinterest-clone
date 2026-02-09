@@ -22,7 +22,7 @@ export default function ProfileScreen() {
                 rightIcon: (
                     <TouchableOpacity
                         activeOpacity={0.8}
-                        onPress={() => router.push("/(tabs)/profile/settings")}
+                        onPress={() => router.push("/(tabs)/settings")}
                         className="w-10 h-10 items-center justify-center"
                     >
                         <Settings color="#fff" size={24} />
