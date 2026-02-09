@@ -30,14 +30,7 @@ export default function FeedScreen() {
     const filters = [...baseFilters, ...userCategories];
 
     return (
-        <ScreenWrapper
-            headerOptions={{
-                title: "For You",
-                showHeader: true,
-                rightIcon: <ProfilePicture />,
-            }}
-            contentContainerClassName="px-0"
-        >
+        <ScreenWrapper contentContainerClassName="px-0">
             <View className="flex-1">
                 <FlashList
                     data={pins}
@@ -81,11 +74,11 @@ export default function FeedScreen() {
                             refreshing={isRefreshing}
                             onRefresh={refresh}
                             tintColor="#ffffff"
-                            progressViewOffset={insets.top + 100}
+                            progressViewOffset={insets.top}
                         />
                     }
                     contentContainerStyle={{
-                        paddingTop: insets.top + 54,
+                        paddingTop: insets.top,
                         paddingBottom: insets.bottom + 100,
                     }}
                     showsVerticalScrollIndicator={false}

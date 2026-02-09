@@ -13,7 +13,7 @@ const PinCreatorProfile = ({ userId }: { userId: string }) => {
     return (
         <Pressable
             onPress={() => router.push(`/user/${userId}`)}
-            className="flex-row items-center gap-2"
+            className="flex-row items-center gap-2 mb-2"
         >
             <View className="h-4 w-4 rounded-full overflow-hidden bg-background-700">
                 {user.photoURL ? (

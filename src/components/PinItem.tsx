@@ -1,7 +1,7 @@
 import { Link, useRouter, useSegments } from "expo-router";
 import { Ellipsis } from "lucide-react-native";
 import { Pressable, View } from "react-native";
-import { PinImage } from "@/src/components/ui";
+import { AppText, PinImage } from "@/src/components/ui";
 import type { Pin } from "@/src/schemas";
 import { usePinStore } from "@/src/stores";
 
@@ -48,21 +48,24 @@ export default function PinItem({ item }: Readonly<PinItemProps>) {
                 </Pressable>
             </Link>
 
-            <Pressable
-                className="absolute bottom-2 right-3 flex-row items-start justify-end"
-                hitSlop={8}
-                onPress={() => {
-                    setSelectedPin(item);
-                    router.push({
-                        pathname: "/(tabs)/feed/pin-options",
-                        params: {
-                            id: item.id,
-                        },
-                    });
-                }}
-            >
-                <Ellipsis size={16} color="#ffffff" />
-            </Pressable>
+            <View className="flex-row justify-between items-center mb-2 px-1">
+                <AppText size="xs">{item.title}</AppText>
+
+                <Pressable
+                    hitSlop={8}
+                    onPress={() => {
+                        setSelectedPin(item);
+                        router.push({
+                            pathname: "/(tabs)/feed/pin-options",
+                            params: {
+                                id: item.id,
+                            },
+                        });
+                    }}
+                >
+                    <Ellipsis size={16} color="#ffffff" />
+                </Pressable>
+            </View>
         </View>
     );
 }

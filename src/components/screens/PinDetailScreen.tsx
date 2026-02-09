@@ -1,4 +1,5 @@
 import { FlashList } from "@shopify/flash-list";
+import { BlurView } from "expo-blur";
 import { GlassView } from "expo-glass-effect";
 import { Image } from "expo-image";
 import { Link, useRouter } from "expo-router";
@@ -34,10 +35,12 @@ const PinDetailImage = React.memo(
     }) => {
         return (
             <Link.AppleZoomTarget>
-                <View className="px-1">
+                <View className="px-2 max-h-[70vh] z-10 relative">
                     <Image
                         source={{ uri: imageUrl }}
+                        contentPosition="top"
                         style={{
+                            width: "100%",
                             aspectRatio: width / height,
                             maxHeight: "100%",
                             marginHorizontal: "auto",
@@ -72,8 +75,6 @@ export default function PinDetailScreen({
         [recommendedPins],
     );
 
-    console.log(pin.imageUrl);
-
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     const BodyContent = useCallback(
         () => (
@@ -91,7 +92,7 @@ export default function PinDetailScreen({
                     <AppBackButton background />
                 </View>
 
-                <View className="p-4">
+                <View className="p-2 pl-4">
                     <View className="flex-row items-center justify-between mb-2">
                         <PinActionButtons pin={pin} disableDelete={false} />
 
@@ -105,7 +106,7 @@ export default function PinDetailScreen({
                         </AppButton>
                     </View>
 
-                    <View className="gap-2">
+                    <View className="">
                         <PinCreatorProfile userId={pin.userId} />
 
                         <AppText
@@ -137,7 +138,7 @@ export default function PinDetailScreen({
                     <AppText
                         size="lg"
                         weight="semibold"
-                        className="text-primary-text mb-4"
+                        className="text-primary-text"
                     >
                         More like this
                     </AppText>
