@@ -2,12 +2,25 @@ import { NativeTabs } from "expo-router/unstable-native-tabs";
 
 export default function TabLayout() {
     return (
-        <NativeTabs minimizeBehavior="onScrollDown">
-            <NativeTabs.Trigger name="feed">
+        <NativeTabs tintColor="#7f00e6">
+            <NativeTabs.Trigger
+                name="feed"
+                contentStyle={{
+                    backgroundColor: "#000000",
+                }}
+            >
                 <NativeTabs.Trigger.Label>Feed</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
                     selectedColor="#7f00e6"
                     sf="house.fill"
+                />
+            </NativeTabs.Trigger>
+
+            <NativeTabs.Trigger name="search">
+                <NativeTabs.Trigger.Label>Search</NativeTabs.Trigger.Label>
+                <NativeTabs.Trigger.Icon
+                    selectedColor="#7f00e6"
+                    sf="magnifyingglass"
                 />
             </NativeTabs.Trigger>
 

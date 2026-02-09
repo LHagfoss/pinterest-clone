@@ -5,16 +5,9 @@ import { ActivityIndicator, View } from "react-native";
 interface PinImageProps {
     style?: object;
     source: string;
-    width: number;
-    height: number;
 }
 
-export function PinImage({
-    style,
-    source,
-    width,
-    height,
-}: Readonly<PinImageProps>) {
+export function PinImage({ style, source }: Readonly<PinImageProps>) {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
@@ -26,9 +19,7 @@ export function PinImage({
                 transition={500}
                 onLoad={() => setIsLoading(false)}
             />
-            {isLoading && (
-                <View className="absolute inset-0 bg-secondary" />
-            )}
+            {isLoading && <View className="absolute inset-0 bg-secondary" />}
         </View>
     );
 }

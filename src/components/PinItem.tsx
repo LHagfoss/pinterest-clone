@@ -37,8 +37,6 @@ export default function PinItem({ item }: Readonly<PinItemProps>) {
                     <Link.AppleZoom>
                         <PinImage
                             source={item.imageUrl}
-                            width={item.width}
-                            height={item.height}
                             style={{
                                 width: "100%",
                                 aspectRatio: item.width / item.height,
